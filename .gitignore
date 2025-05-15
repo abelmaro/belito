@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+
+# C extensions
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+env/
+.belito/
+.belito_env/
+.belito-cache/
+.belito-venv/
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment files
+.env
+.env.*
+
+# FAISS index and serialized data
+data/index.faiss
+data/texts.pkl
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

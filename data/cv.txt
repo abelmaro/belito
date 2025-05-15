@@ -1,0 +1,65 @@
+Abel Maroñas 
+Full Stack Developer  
+contactomaronas@gmail.com | +54 9 11 1111-1111 | Buenos Aires, Argentina  
+LinkedIn: linkedin.com/in/abel-maroñas | GitHub: github.com/abelmaro
+
+---
+
+🧠 PERFIL
+
+Desarrollador Full Stack con 5 años de experiencia en desarrollo web, APIs RESTful y aplicaciones móviles. Enfocado en crear soluciones escalables con buenas prácticas, tests automatizados y experiencia de usuario fluida. Apasionado por la automatización, los sistemas distribuidos y el aprendizaje continuo.
+
+---
+
+🛠️ STACK PRINCIPAL
+
+- Lenguajes: JavaScript (ES6+), Python, TypeScript, SQL, Dart
+- Frameworks: React, Next.js, Node.js, Express, Flutter
+- Backend: PostgreSQL, MongoDB, Redis, Firebase, REST, GraphQL
+- DevOps: Docker, GitHub Actions, Vercel, AWS (EC2, Lambda)
+- Testing: Jest, Cypress, Playwright, Postman
+- Otros: WebSockets, TailwindCSS, React Native, Prisma, Redux Toolkit
+
+---
+
+💼 EXPERIENCIA
+
+Senior Full Stack Developer  
+**Examplempresa** – Remoto | Ago 2022 – Actualidad  
+- Lideré el desarrollo de una plataforma de logística con más de 10K usuarios activos mensuales.
+- Implementé autenticación con OAuth y manejo de sesiones con JWT y refresh tokens.
+- Integré servicios externos (MercadoPago, Twilio, Google Maps API) y mejoré performance general en un 38%.
+
+Full Stack Developer  
+**Examplempresa 2** – Buenos Aires | Mar 2020 – Jul 2022  
+- Desarrollé un sistema de gestión interna para pymes, integrando facturación electrónica (AFIP) y reportes.
+- Migré un sistema monolítico a arquitectura basada en microservicios con Express y PostgreSQL.
+- Coordiné sprints con equipo de 4 personas aplicando metodología ágil Scrum.
+
+Junior Web Developer  
+**Freelance** | Nov 2019 – Feb 2020  
+- Sitios webs corporativos, landings, integración con APIs y e-commerce usando WordPress + WooCommerce y código custom.
+
+---
+
+🎓 EDUCACIÓN
+
+Licenciatura en Sistemas de Información  
+Universidad Tecnológica Nacional (UTN) – En curso (último año)
+
+---
+
+📜 CERTIFICACIONES
+
+- JavaScript Algorithms and Data Structures – freeCodeCamp  
+- Full Stack Web Developer Bootcamp – Udemy (2021)
+- AWS Cloud Practitioner – Amazon (2023)
+
+---
+
+🗣️ IDIOMAS
+
+- Español: Nativo  
+- Inglés: Avanzado (C1, TOEFL 108)
+
+---

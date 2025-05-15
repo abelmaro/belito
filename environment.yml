@@ -1,0 +1,14 @@
+name: belito
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - fastapi
+  - uvicorn
+  - faiss-cpu
+  - numpy
+  - httpx
+  - pip
+  - pip:
+      - openai>=1.0.0
+      - python-dotenv
