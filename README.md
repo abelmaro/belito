@@ -1,106 +1,118 @@
-# Belito RAG API
+# Belito: AI-powered Job Application Generator
 
-A Chrome extension that generates professional job application messages (in Markdown) by combining your uploaded resume and the job description from a LinkedIn job page. Uses a local RAG (Retrieval-Augmented Generation) backend powered by FAISS and any LLM available via Ollama.
+Belito is a local, privacy-first Chrome extension + backend that helps you generate tailored job application messages using your uploaded resume and the job description from any LinkedIn job page.
+
+It works by combining:
+
+- A **FastAPI backend** with a FAISS-based RAG system powered by any LLM served through **Ollama**
+- A **Chrome extension** that reads the job post from LinkedIn and renders a personalized message in real time
 
 ---
 
 ## Features
 
-- Upload and chunk `.txt` documents for indexing
-- Store vector embeddings using FAISS
-- Ask questions based on uploaded content (RAG)
-- Persistent index between restarts
-- Ollama-compatible LLM integration (e.g. Qwen, Mistral)
-- Endpoint to reset the index (`/reset`)
-- Uses environment variables for configuration
+- Upload a `.txt` version of your resume
+- Local vector search with FAISS and semantic embeddings
+- Answers generated using any Ollama-compatible model (e.g. Qwen, Mistral)
+- Message is structured in Markdown
+- Persisted state (you only need to upload your resume once)
+- No API keys required, no data sent to the cloud
 
 ---
 
 ## Requirements
 
 - Python 3.10+
-- FAISS
-- Ollama running locally with supported models
+- Ollama installed and running locally
+- Chrome (to run the extension)
 
 ---
 
-## Installation
+## 1. Backend API
 
-Clone the repository and install dependencies:
+### Setup
 
 ```bash
-git clone https://github.com/your-username/belito-rag-api.git
-cd belito-rag-api
+git clone https://github.com/abelmaro/belito.git
+cd belito/api
 
-# Option 1: pip
+# Install dependencies
 pip install -r requirements.txt
 
-# Option 2: conda
+# Or with Conda
 conda env create -f environment.yml
 conda activate belito
 ```
 
----
+### Configuration
 
-## Configuration
-
-Create a `.env` file based on the provided `env.example`:
+Create a `.env` file based on the provided example:
 
 ```env
 OLLAMA_BASE_URL=http://localhost:11434/v1
-LLM_MODEL=qwen3:1.7b
+LLM_MODEL=qwen3:1.7b # Very small model, for faster testing. For better results use a 14b+ model
 EMBEDDING_MODEL=nomic-embed-text:latest
 OLLAMA_API_KEY=ollama
 ```
 
----
-
-## Usage
-
-Run the server locally:
+### Run
 
 ```bash
 uvicorn api.main:app --reload --port 8000
 ```
 
-Visit `http://localhost:8000/docs` for interactive API documentation (Swagger UI).
+Then open `http://localhost:8000/docs` to test the endpoints.
 
 ---
 
-## Endpoints
+### API Endpoints
 
 | Method | Route     | Description                                |
 |--------|-----------|--------------------------------------------|
-| POST   | /upload   | Upload a `.txt` file to be embedded/indexed |
-| POST   | /ask      | Ask a question based on uploaded context   |
-| POST   | /reset    | Clear the FAISS index and stored texts     |
+| POST   | /upload   | Upload a `.txt` resume to embed and index  |
+| POST   | /ask      | Ask the model to generate a message        |
+| POST   | /reset    | Clear stored embeddings and resume content |
+
+---
+
+## 2. Chrome Extension
+
+### Install locally
+
+1. Go to `chrome://extensions`
+2. Enable **Developer mode**
+3. Click **Load unpacked** and select the `extension/` folder
+
+### Usage
+
+1. Open a LinkedIn job page
+2. Upload your resume as `.txt`
+3. Click **Generate proposal**
+4. The extension will extract the job post, match it with your resume, and show a custom Markdown message
 
 ---
 
 ## Folder Structure
 
 ```
-api/
-├── main.py
-├── startup.py
-├── routes/
-│   └── rag.py
-├── services/
-│   ├── embedding.py
-│   └── indexing.py
-data/
-.env.example
-requirements.txt
-environment.yml
+belito/
+├── api/
+│   ├── main.py
+│   ├── startup.py
+│   ├── routes/
+│   └── services/
+├── extension/
+│   ├── popup.html
+│   ├── popup.js
+│   ├── content.js
+│   ├── manifest.json
+│   └── marked.min.js
+├── data/
+├── .env.example
+├── requirements.txt
+├── environment.yml
+└── README.md
 ```
-
----
-
-## Notes
-
-- This project uses `python-dotenv` to load environment variables.
-- FAISS index and texts are persisted in the `data/` folder.
-- Ensure Ollama is running and the required models are pulled.
 
 ---
 
