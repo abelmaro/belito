@@ -1,23 +1,61 @@
-chrome.runtime.onMessage.addListener((request, sendResponse) => {
+function getAndCleanJobTextFromPage() {
+  const el = document.querySelector('#job-details');
+
+  if (!el || typeof el.innerText !== 'string') {
+    return "";
+  }
+
+  let text = el.innerText;
+
+  if (!text.trim()) {
+    return "";
+  }
+
+  text = text.replace(/[ \t]+/g, ' ');
+  text = text.split('\n')
+             .map(line => line.trim())
+             .filter(line => line.length > 0)
+             .join('\n');
+  text = text.replace(/\n{3,}/g, '\n\n');
+  text = text.trim();
+
+  return text;
+}
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'getJobDescription') {
     const MAX_WAIT_MS = 3000;
-    const INTERVAL = 100;
+    const INTERVAL_MS = 100;
+    let elapsedTime = 0;
+    let responseSent = false;
 
-    let elapsed = 0;
-
-    const interval = setInterval(() => {
-      const el = document.querySelector('#job-details');
-      if (el && el.innerText.trim().length > 50) {
-        clearInterval(interval);
-        sendResponse({ jobText: el.innerText.trim() });
+    const attemptInterval = setInterval(() => {
+      if (responseSent) {
+        clearInterval(attemptInterval);
+        return;
       }
 
-      elapsed += INTERVAL;
-      if (elapsed >= MAX_WAIT_MS) {
-        clearInterval(interval);
-        sendResponse({ jobText: '' });
+      try {
+        const jobText = getAndCleanJobTextFromPage();
+
+        if (jobText.length > 50) {
+          clearInterval(attemptInterval);
+          responseSent = true;
+          sendResponse({ jobText: jobText });
+        } else {
+          elapsedTime += INTERVAL_MS;
+          if (elapsedTime >= MAX_WAIT_MS) {
+            clearInterval(attemptInterval);
+            responseSent = true;
+            sendResponse({ jobText: "" });
+          }
+        }
+      } catch (error) {
+        clearInterval(attemptInterval);
+        responseSent = true;
+        sendResponse({ jobText: "", error: error.message });
       }
-    }, INTERVAL);
+    }, INTERVAL_MS);
 
     return true;
   }
